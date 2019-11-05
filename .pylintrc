@@ -1,0 +1,8 @@
+[MASTER]
+ignore=test_projects_files
+
+[MESSAGES CONTROL]
+disable=
+    R,
+    C,
+    W

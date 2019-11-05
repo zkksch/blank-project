@@ -1,0 +1,14 @@
+-r base.txt
+{% if mypy %}
+mypy{% endif %}{% if isort %}
+isort{% endif %}{% if pylint %}
+pylint{% endif %}{% if coverage %}
+coverage{% endif %}{% if flake8 %}
+flake8{% endif %}
+tox
+{% if docs %}
+typed-ast
+sphinx
+sphinx-autodoc-typehints
+sphinx-rtd-theme
+{% endif %}

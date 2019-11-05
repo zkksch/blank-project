@@ -1,0 +1,17 @@
+[run]
+branch = True
+include =
+    */src/*
+omit =
+    */src/blank_project/template/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+
+    raise AssertionError
+    raise NotImplementedError
+
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:
+    except ImportError:

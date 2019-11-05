@@ -1,0 +1,76 @@
+[tox]
+envlist ={% if python2 %}
+    py27{% endif %}
+    py37{% if coverage %}
+    coverage{% endif %}{% if mypy %}
+    mypy{% endif %}{% if isort %}
+    isort{% endif %}{% if pylint %}
+    pylint{% endif %}{% if flake8 %}
+    flake8{% endif %}{% if coverage %}
+
+
+[testenv]
+usedevelop = True
+deps =
+    coverage
+    -r {toxinidir}/requirements/base.txt
+commands =
+    coverage run --rcfile={toxinidir}/.coveragerc -p -m unittest discover -s {toxinidir}/src{% else %}
+
+
+[testenv]
+usedevelop = True
+deps =
+    -r {toxinidir}/requirements/base.txt
+commands =
+    python -m unittest discover -s {toxinidir}/src{% endif %}{% if coverage %}
+
+
+[testenv:coverage]
+basepython = python3.7
+usedevelop = True
+deps =
+    coverage
+    -r {toxinidir}/requirements/base.txt
+commands =
+    coverage combine
+    coverage report --fail-under={{ coverage_fail }}
+commands_post =
+    coverage erase{% endif %}{% if mypy %}
+
+
+[testenv:mypy]
+basepython = python3.7
+deps =
+    mypy
+    -r {toxinidir}/requirements/base.txt
+commands =
+    python -m mypy --config-file {toxinidir}/mypy.ini {toxinidir}/src{% endif %}{% if isort %}
+
+
+[testenv:isort]
+basepython = python3.7
+deps =
+    isort
+    -r {toxinidir}/requirements/base.txt
+commands =
+    python -m isort -rc {toxinidir}/src -sp {toxinidir} --check-only --diff{% endif %}{% if pylint %}
+
+
+[testenv:pylint]
+basepython = python3.7
+deps =
+    pylint
+    -r {toxinidir}/requirements/base.txt
+commands =
+    python -m pylint --rcfile {toxinidir}/.pylintrc {toxinidir}/src{% endif %}{% if flake8 %}
+
+
+[testenv:flake8]
+basepython = python3.7
+deps =
+    flake8
+    -r {toxinidir}/requirements/base.txt
+commands =
+    python -m flake8 --config {toxinidir}/.flake8 {toxinidir}/src{% endif %}
+

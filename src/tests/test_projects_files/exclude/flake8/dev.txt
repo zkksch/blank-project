@@ -1,0 +1,12 @@
+-r base.txt
+
+mypy
+isort
+pylint
+coverage
+tox
+
+typed-ast
+sphinx
+sphinx-autodoc-typehints
+sphinx-rtd-theme
