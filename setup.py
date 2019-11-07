@@ -14,8 +14,8 @@ with open(join(dirname(__file__), 'README.md'),
 
 def main():
     setup(
-        name='project',
-        author='author',
+        name='blank-project',
+        author='zkksch',
         version='0.1.0',
         description=(
             ''
@@ -24,8 +24,21 @@ def main():
         long_description_content_type='text/markdown',
         classifiers=[],
         packages=find_packages('src'),
-        package_dir={'': 'src'},
-        install_requires=(),
+        package_dir={'blank_project': 'src/blank_project'},
+        package_data={'blank_project': [
+            'template/*.*',
+            'template/.*',
+            'template/docs/*.*',
+            'template/docs/*',
+            'template/docs/source/*.*',
+            'template/requirements/*.*',
+        ]},
+        install_requires=(
+            'jinja2==2.10.3',
+        ),
+        scripts=(
+            'scripts/blank-project.py',
+        ),
     )
 
 
