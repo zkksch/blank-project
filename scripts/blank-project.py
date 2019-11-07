@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import argparse
 
 from blank_project import DEFAULT_COVERAGE
