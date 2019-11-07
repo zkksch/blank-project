@@ -4,7 +4,7 @@ language: python
 
 python:
   - 3.6
-  - 3.7-dev
+  - 3.7
 
 cache: pip
 
@@ -12,15 +12,19 @@ os:
   - linux
 
 install:
+  - pip install -e .
+  - pip install -r requirements/base.txt
   - pip install tox
-  - pip install tox-travis
+  - pip install coverage
   - pip install coveralls
 
 script:
-  - tox
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.6" ]]; then tox -e py36,coverage; fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" == "3.7" ]]; then tox -e py37,coverage,mypy,isort,pylint,flake8; fi
 
 after_success:
-  - tox -e coveralls
+  - coverage run --rcfile=.coveragerc -m unittest discover -s src
+  - coveralls
 
 notifications:
   email: false
